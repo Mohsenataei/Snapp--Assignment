@@ -3,9 +3,11 @@ object Config {
         const val kotlin = "1.3.72"
         const val gradle = "4.0.0"
     }
+
     object BuildPlugins {
         const val androidGradle = "com.android.tools.build:gradle:${Versions.gradle}"
-        const val kotlinGradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
+        const val kotlinGradlePlugin =
+            "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
     }
 
     object Android {
@@ -33,10 +35,14 @@ object Config {
         const val androidXConstraintLayout = "androidx.constraintlayout:constraintlayout:2.0.1"
     }
 
-    object TestLibs{
+    object TestLibs {
         const val jUnit = "junit:junit:4.12"
         const val extJUnit = "androidx.test.ext:junit:1.1.2"
         const val espresso = "androidx.test.espresso:espresso-core:3.3.0"
+    }
+
+    object Modules {
+
     }
 
 }
