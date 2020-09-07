@@ -5,21 +5,21 @@ plugins {
 }
 
 android {
-    compileSdkVersion(30)
-    buildToolsVersion("30.0.1")
+    compileSdkVersion(Config.Android.compileSdkVersion)
+    buildToolsVersion(Config.Android.buildToolsVersion)
 
     defaultConfig {
-        applicationId = "com.mohsen.architecture"
-        minSdkVersion(21)
-        targetSdkVersion(30)
-        versionCode = 1
-        versionName = "1.0"
+        applicationId = Config.Android.applicationId
+        minSdkVersion(Config.Android.minSdkVersion)
+        targetSdkVersion(Config.Android.targetSdkVersion)
+        versionCode = Config.Android.versionCode
+        versionName = Config.Android.versionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
-        getByName("release") {
+        getByName(Config.BuildTypes.RELEASE) {
             isMinifyEnabled =  false
             proguardFiles (getDefaultProguardFile ("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
@@ -28,12 +28,12 @@ android {
 
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.3.72")
-    implementation("androidx.core:core-ktx:1.3.1")
-    implementation("androidx.appcompat:appcompat:1.2.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.0.1")
-    testImplementation("junit:junit:4.12")
-    androidTestImplementation("androidx.test.ext:junit:1.1.2")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0")
+    implementation(Config.Libs.kotlin)
+    implementation(Config.Libs.androidxCoreKtx)
+    implementation(Config.Libs.androidXAppcompat)
+    implementation(Config.Libs.androidXConstraintLayout)
 
+    testImplementation(Config.TestLibs.jUnit)
+    testImplementation(Config.TestLibs.extJUnit)
+    testImplementation(Config.TestLibs.espresso)
 }
