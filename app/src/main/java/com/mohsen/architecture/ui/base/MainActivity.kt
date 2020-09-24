@@ -1,7 +1,8 @@
-package com.mohsen.architecture
+package com.mohsen.architecture.ui.base
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.mohsen.architecture.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

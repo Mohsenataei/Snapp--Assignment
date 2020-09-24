@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("kotlin-android")
     id("kotlin-android-extensions")
+    id("kotlin-kapt")
 }
 
 android {
@@ -32,7 +33,7 @@ dependencies {
     implementation(Config.Libs.androidxCoreKtx)
     implementation(Config.Libs.androidXAppcompat)
     implementation(Config.Libs.androidXConstraintLayout)
-
+    implementation(Config.CommonLibs.dagger)
     testImplementation(Config.TestLibs.jUnit)
     testImplementation(Config.TestLibs.extJUnit)
     testImplementation(Config.TestLibs.espresso)
