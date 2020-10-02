@@ -1,4 +1,4 @@
-package com.mohsen.architecture
+package io.mohsen.architecture
 
 import org.junit.Test
 

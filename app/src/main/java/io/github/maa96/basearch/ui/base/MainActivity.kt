@@ -1,4 +1,4 @@
-package com.mohsen.architecture.ui.base
+package io.github.maa96.basearch.ui.base
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

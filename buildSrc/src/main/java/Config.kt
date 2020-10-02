@@ -55,6 +55,10 @@ object Config {
         const val androidXConstraintLayout = "androidx.constraintlayout:constraintlayout:2.0.1"
     }
 
+    object Modules {
+        const val data = ":data"
+    }
+
     object JetpackLibs {
         const val lifecycleExtensions = "androidx.lifecycle:lifecycle-extensions:${Versions.arch}"
         const val lifecycleKtx = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.arch}"
