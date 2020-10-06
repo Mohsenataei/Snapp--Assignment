@@ -1,6 +1,10 @@
 package io.github.maa96.basearch.ui.base.adapter
 
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.mohsen.architecture.BR
 
@@ -15,7 +19,9 @@ import com.mohsen.architecture.BR
  * binding class outside of [BaseAdapter].
  * */
 
-// TODO ("")
+/**
+ * TODO Do not forget to update this constructor with [BR] class
+ * */
 abstract class BaseAdapter<T : Any, B : ViewDataBinding>(
     private val itemBindingId: Int,
     items: List<T> = emptyList(),
@@ -42,7 +48,70 @@ abstract class BaseAdapter<T : Any, B : ViewDataBinding>(
      * @return relevant layout resource id based on given position
      *
      */
-    abstract fun getLayoutId(position: Int) : Int
+    abstract fun getLayoutId(position: Int): Int
+
+
+    /**
+     * Instead of returning viewType, this method will return layout id at given position provided
+     * by [getLayoutId] and will be used in [onCreateViewHolder].
+     *
+     * @see [RecyclerView.Adapter.getItemViewType]
+     */
+    override fun getItemViewType(position: Int): Int {
+        return getLayoutId(position)
+    }
+
+    /**
+     * Attempt to create an instance of [BaseViewHolder] with inflated Binding class
+     *
+     * @param viewType will be used as layoutId for [DataBindingUtil] and will be provided by [getItemViewType]
+     *
+     * @see [RecyclerView.Adapter.onCreateViewHolder]
+     */
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<T, B> {
+        val inflater = LayoutInflater.from(parent.context)
+        val binding: B = DataBindingUtil.inflate(inflater, viewType, parent, false)
+
+        return BaseViewHolder(binding)
+    }
+
+
+    /**
+     * Attempt to bind item at given position to holder.
+     * And also attempts to invoke [onBind] lambda
+     * function on instance of [B] in [BaseViewHolder.binding].
+     *
+     * @see [RecyclerView.Adapter.onBindViewHolder]
+     */
+    override fun onBindViewHolder(holder: BaseViewHolder<T, B>, position: Int) {
+        holder.bind(itemBindingId, getItem(position))
+        holder.binding.onBind(position)
+    }
+
+    /**
+     * This function attempts to replace current current list of items with new data and notify adapter
+     * base on differences of those two lists with help of [DiffUtil]
+     */
+
+    open fun swapItems(newList: List<T>) {
+        val diffResult = DiffUtil.calculateDiff(object : DiffUtil.Callback() {
+            override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
+                items[oldItemPosition] == newList[newItemPosition]
+
+            override fun getOldListSize(): Int  = items.size
+
+            override fun getNewListSize(): Int  = newList.size
+
+            override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
+                items[oldItemPosition] == newList[newItemPosition]
+        })
+
+        diffResult.dispatchUpdatesTo(this)
+        items.clear()
+        items.addAll(newList)
+
+    }
+
 
 
 
