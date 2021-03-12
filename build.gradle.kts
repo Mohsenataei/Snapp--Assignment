@@ -10,9 +10,8 @@ buildscript {
         maven { setUrl("https://jitpack.io") }
     }
     dependencies {
-        classpath (Config.BuildPlugins.androidGradle)
-        classpath (Config.BuildPlugins.kotlinGradlePlugin)
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
+        classpath(Dependencies.BuildPlugins.androidGradle)
+        classpath(Dependencies.BuildPlugins.kotlinGradlePlugin)
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -22,11 +21,11 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven { setUrl ("https://dl.bintray.com/arrow-kt/arrow-kt/") }
+        maven { setUrl("https://dl.bintray.com/arrow-kt/arrow-kt/") }
 
     }
 }
 
-tasks.register("clean" , Delete::class){
+tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)
 }
