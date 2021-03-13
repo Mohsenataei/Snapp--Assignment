@@ -6,6 +6,34 @@ plugins {
     id("kotlin-android-extensions")
 }
 
+android {
+    compileSdkVersion (28)
+
+
+    defaultConfig {
+        minSdkVersion (16)
+        targetSdkVersion (28)
+        versionCode = 1
+        versionName = "1.0"
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+//    buildTypes {
+//        release {
+//            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+//        }
+//    }
+
+}
+
+
 dependencies {
 
 //    implementation project(path: ':buildSrc')
