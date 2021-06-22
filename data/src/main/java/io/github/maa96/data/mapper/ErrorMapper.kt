@@ -15,7 +15,7 @@ class ErrorMapper @Inject constructor(private val httpErrorMapper: HttpErrorMapp
      * @return returns an instance of [Error]
      */
     fun getError(t: Throwable): Error {
-        // if connection was successful but no data received
+        // connection was successful but no data received
         if (t is NullPointerException) {
             return Error.Null
         }
@@ -23,7 +23,7 @@ class ErrorMapper @Inject constructor(private val httpErrorMapper: HttpErrorMapp
         if (httpError != null) {
             return httpError
         }
-        // something happened that we did not make our self ready for it
+        // something happened that we was not ready for it
         return Error.NotDefined(t)
     }
 }
