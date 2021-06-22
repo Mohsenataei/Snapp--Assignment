@@ -48,7 +48,12 @@ dependencies {
     implementation(Dependencies.Libs.androidxCoreKtx)
     implementation(Dependencies.Libs.androidXAppcompat)
     implementation(Dependencies.Libs.androidXConstraintLayout)
+
     implementation(Dependencies.CommonLibs.dagger)
+    implementation(Dependencies.CommonLibs.daggerAndroid)
+    kapt(Dependencies.CommonLibs.daggerAndroidCompiler)
+    kapt(Dependencies.CommonLibs.daggerCompiler)
+
     testImplementation(Dependencies.TestLibs.junit)
     testImplementation(Dependencies.TestLibs.extJUnit)
     testImplementation(Dependencies.TestLibs.espresso)
