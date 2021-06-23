@@ -22,6 +22,8 @@ object Dependencies {
         const val testRunner = "1.2.0"
         const val espresso = "3.2.0"
         const val mockitoKotlin = "1.6.0"
+        const val navigationComponent = "2.3.0"
+        const val fragment = "1.2.5"
     }
 
     object BuildPlugins {
@@ -70,6 +72,10 @@ object Dependencies {
         const val material = "com.google.android.material:material:${Versions.material}"
         const val annotations = "androidx.annotation:annotation:${Versions.material}"
         const val constraintLayout = "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
+        const val navigationFragment = "androidx.navigation:navigation-fragment:${Versions.navigationComponent}"
+        const val navigationUi ="androidx.navigation:navigation-ui:${Versions.navigationComponent}"
+        const val fragment = "androidx.fragment:fragment-ktx:${Versions.fragment}"
+
     }
 
     object CommonLibs {

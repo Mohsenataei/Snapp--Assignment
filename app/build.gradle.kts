@@ -74,6 +74,9 @@ dependencies {
     implementation(Dependencies.JetpackLibs.room)
     implementation(Dependencies.JetpackLibs.material)
     implementation(Dependencies.JetpackLibs.constraintLayout)
+    implementation(Dependencies.JetpackLibs.navigationFragment)
+    implementation(Dependencies.JetpackLibs.navigationUi)
+    implementation(Dependencies.JetpackLibs.fragment)
 
     //TODO ("add hilt dependency injection later.")
     //dagger
