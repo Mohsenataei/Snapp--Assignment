@@ -1,4 +1,4 @@
-package io.github.maa96.basearch.ui.base
+package io.github.maa96.basearch.ui.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
