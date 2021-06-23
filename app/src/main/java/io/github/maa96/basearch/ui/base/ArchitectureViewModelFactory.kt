@@ -1,4 +1,4 @@
-package io.github.maa96.basearch.viewmodel
+package io.github.maa96.basearch.ui.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
