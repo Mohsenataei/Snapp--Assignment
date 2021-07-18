@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import dagger.android.support.DaggerFragment
@@ -59,10 +60,13 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewDataBinding> : DaggerFrag
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // observe viewModel uiActions in order to pass parent activity as argument of uiAction
-        viewModel.activityAction.observe(
-            viewLifecycleOwner,
-            Observer { it?.invoke(requireActivity()) })
-        viewModel.fragmentAction.observe(viewLifecycleOwner, Observer { it?.invoke(this) })
+        viewModel.activityAction.observe(viewLifecycleOwner, Observer {
+            it.invoke(requireActivity())
+        })
+
+//        viewModel.fragmentAction.observe(viewLifecycleOwner) {
+//            it?.invoke(this)
+//        }
         onViewInitialized(binding)
     }
 
