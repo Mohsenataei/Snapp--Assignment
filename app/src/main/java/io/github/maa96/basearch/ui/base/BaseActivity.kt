@@ -7,6 +7,8 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import com.mapbox.mapboxsdk.Mapbox
+import com.mohsen.architecture.R
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
@@ -36,6 +38,7 @@ abstract class BaseActivity<V : BaseViewModel, B : ViewDataBinding> : DaggerAppC
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
 
         binding = DataBindingUtil.setContentView(this, layoutId)
         binding.lifecycleOwner = this

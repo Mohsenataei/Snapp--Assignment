@@ -15,18 +15,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
+            <com.mapbox.mapboxsdk.maps.MapView
+                android:id="@+id/mapView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textSize="22sp"
-                android:text="This is sample text for home activity" />
+                android:layout_height="match_parent"
+                />
 
 
 
 
 
-            
+
 
 <!--            <fragment-->
 <!--                android:id="@+id/nav_host_fragment"-->
