@@ -1,2 +1,2 @@
-# ModularArchitecture
-Simple Project to demonstrate how to use jetpack architecture components alongside with mvvm and clean architecture.
+# Snapp--Assignment
+This is The task for Snapp! android interview
