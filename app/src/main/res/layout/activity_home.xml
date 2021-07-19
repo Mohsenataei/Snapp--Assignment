@@ -22,6 +22,12 @@
                 android:textSize="22sp"
                 android:text="This is sample text for home activity" />
 
+
+
+
+
+            
+
 <!--            <fragment-->
 <!--                android:id="@+id/nav_host_fragment"-->
 <!--                android:name="androidx.navigation.fragment.NavHostFragment"-->

@@ -1,3 +1,3 @@
 include(":data")
 include (":app")
-rootProject.name = "Architecture"
+rootProject.name = "Snapp!-Assignment"

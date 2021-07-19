@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Architecture</string>
+    <string name="app_name">Snapp! Assignment</string>
+    <string name="mapbox_access_token">pk.eyJ1IjoibW9oc2VuYXRhZWkiLCJhIjoiY2tyOTQydHNiNDVkeTJ2cWg1MzVtZzN3biJ9.aqkI-cHIGqEP_fEXx1psUQ</string>
 </resources>

@@ -25,11 +25,16 @@ android {
 
     buildTypes {
         getByName(Dependencies.BuildTypes.RELEASE) {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "MapboxAccessToken", Dependencies.Config.MapboxAccessToken)
+        }
+
+        getByName(Dependencies.BuildTypes.DEBUG) {
+
         }
     }
     compileOptions {
@@ -63,6 +68,9 @@ dependencies {
     implementation(Dependencies.CommonLibs.arrowCore)
     implementation(Dependencies.CommonLibs.arrowSyntax)
     kapt(Dependencies.CommonLibs.arrowSyntax)
+
+//    implementation("com.mapbox.mapboxsdk:mapbox-android-core:3.1.0")
+    implementation(Dependencies.CommonLibs.mapBox)
 
     implementation(project(Dependencies.Modules.data))
 

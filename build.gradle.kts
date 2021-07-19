@@ -24,7 +24,19 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven { setUrl("https://dl.bintray.com/arrow-kt/arrow-kt/") }
+//        maven {
+//            setUrl("https://dl.bintray.com/arrow-kt/arrow-kt/")
+//        }
+        maven {
+            setUrl("https://api.mapbox.com/downloads/v2/releases/maven")
+            authentication {
+                create<BasicAuthentication>("basic")
+                credentials {
+                    username = "mapbox"
+                    password = project.properties["MAPBOX_DOWNLOADS_TOKEN"].toString() ?: ""
+                }
+            }
+        }
 
     }
 }

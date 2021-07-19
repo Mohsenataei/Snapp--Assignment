@@ -24,6 +24,8 @@ object Dependencies {
         const val mockitoKotlin = "1.6.0"
         const val navigationComponent = "2.3.0"
         const val fragment = "1.2.5"
+        const val mapBox = "9.6.2"
+        const val mapBoxCore = "9.6.2"
     }
 
     object BuildPlugins {
@@ -97,6 +99,7 @@ object Dependencies {
         const val stetho_OkHttp = "com.facebook.stetho:stetho-okhttp3:${Versions.stetho}"
         const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
         const val glideCompiler = "com.github.bumptech.glide:compiler:${Versions.glide}"
+        const val mapBox = "com.mapbox.mapboxsdk:mapbox-android-sdk:${Versions.mapBox}"
     }
     object TestLibs {
         const val junit = "junit:junit:${Versions.junit}"
@@ -106,6 +109,10 @@ object Dependencies {
         const val archTesting = "androidx.arch.core:core-testing:${Versions.archTest}"
         const val extJUnit = "androidx.test.ext:junit:1.1.2"
         const val espresso = "androidx.test.espresso:espresso-core:3.3.0"
+    }
+
+    object Config {
+        const val MapboxAccessToken = "pk.eyJ1IjoibW9oc2VuYXRhZWkiLCJhIjoiY2tyOTQydHNiNDVkeTJ2cWg1MzVtZzN3biJ9.aqkI-cHIGqEP_fEXx1psUQ"
     }
 
 }
