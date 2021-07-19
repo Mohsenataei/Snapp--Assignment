@@ -8,9 +8,9 @@ import javax.inject.Inject
  */
 class SecretFields @Inject constructor() {
 
-    private val debugBaseUrl = "https://pro-api.coinmarketcap.com/"
+    private val debugBaseUrl = "https://60f3fb1c3cb0870017a8a0c5.mockapi.io/api/"
 
-    private val releaseBaseUrl = "https://pro-api.coinmarketcap.com/"
+    private val releaseBaseUrl = "https://60f3fb1c3cb0870017a8a0c5.mockapi.io/api/"
 
     val apiKey: String = "c3fbf66f-8aa2-455b-8c1c-fb930aed1378"
 
