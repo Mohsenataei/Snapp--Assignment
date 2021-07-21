@@ -12,10 +12,9 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideRoomDatabase(context: Context): AppDataBase {
-        return Room
-            .databaseBuilder(context, AppDataBase::class.java, AppDataBase.DB_NAME)
-            .fallbackToDestructiveMigration()
-            .build()
-    }
+    fun provideRoomDatabase(context: Context): AppDataBase = AppDataBase.getInstance(context)
+
+    @Provides
+    @Singleton
+    fun providePointOfInterestDao(db: AppDataBase) = db.pointOfInterestDao()
 }

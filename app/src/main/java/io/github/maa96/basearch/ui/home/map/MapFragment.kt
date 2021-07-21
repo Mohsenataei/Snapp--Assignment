@@ -18,34 +18,4 @@ class MapFragment : BaseFragment<MapViewModel, FragmentMapBinding>() {
         mapView = binding.mapView
         viewModel.initMap(binding.mapView)
     }
-
-    override fun onStart() {
-        super.onStart()
-        mapView.onStart()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        mapView.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        mapView.onPause()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        mapView.onStop()
-    }
-
-    override fun onLowMemory() {
-        super.onLowMemory()
-        mapView.onLowMemory()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        mapView.onDestroy()
-    }
 }
