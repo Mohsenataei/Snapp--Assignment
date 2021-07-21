@@ -69,8 +69,8 @@ dependencies {
     implementation(Dependencies.CommonLibs.arrowSyntax)
     kapt(Dependencies.CommonLibs.arrowSyntax)
 
-//    implementation("com.mapbox.mapboxsdk:mapbox-android-core:3.1.0")
     implementation(Dependencies.CommonLibs.mapBox)
+    implementation(Dependencies.CommonLibs.mapBoxAnnotation)
 
     implementation(project(Dependencies.Modules.data))
 

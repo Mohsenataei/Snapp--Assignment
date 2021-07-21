@@ -17,7 +17,7 @@ class StubDataSource(
     private val fileProvider: BaseFileProvider
 ) : DataSource {
 
-    override suspend fun getAllPOIs(): ResponseWrapper<List<PointOfInterest>> {
+    override suspend fun getAllPOIs(): List<PointOfInterest> {
         TODO("Not yet implemented")
     }
 //    (
