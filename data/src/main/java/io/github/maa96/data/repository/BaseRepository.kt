@@ -25,10 +25,16 @@ abstract class BaseRepository(private val errorMapper: ErrorMapper) {
     }
 
     /**
-     * This is a generic function
+     * This is a generic function for making a network request and caching it into database
+     * [ResultType] is type of result that we get from our network request
+     * [RequestType] is requesting type of our network request
+     * @param query is our database query that we make to get data from database
+     * @param fetch is a higher order function that responsible for making our network request
+     * @param saveFetchedResult is a higher order function that saves our network response to our database
+     * @param shouldFetch is a higher order function that decides whether our response should save in database our not
      * */
     @OptIn(ExperimentalCoroutinesApi::class)
-    inline protected fun <ResultType, RequestType> networkBoundResource(
+    protected inline fun <ResultType, RequestType> networkBoundResource(
         crossinline query: () -> Flow<ResultType>,
         crossinline fetch: suspend () -> RequestType,
         crossinline saveFetchedResult: suspend (RequestType) -> Unit,
@@ -49,7 +55,7 @@ abstract class BaseRepository(private val errorMapper: ErrorMapper) {
         emitAll(flow)
 
         // This is functional implementation of above piece of code but todo remember to test it
-        shouldFetch(data).takeIf { it }?.apply {
+        /*shouldFetch(data).takeIf { it }?.apply {
             emit(Resource.Loading(data))
             try {
                 saveFetchedResult(fetch())
@@ -60,7 +66,7 @@ abstract class BaseRepository(private val errorMapper: ErrorMapper) {
         } ?: let {
             query().map { Resource.Success(it) }
         }
-        emitAll(flow)
+        emitAll(flow)*/
     }
 
 }
