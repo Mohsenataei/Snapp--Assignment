@@ -9,4 +9,8 @@ class POIDetailFragment : BaseFragment<POIDetailViewModel, FragmentPoiDetailBind
     override val viewModel: POIDetailViewModel by getLazyViewModel(ViewModelScope.FRAGMENT)
     override val layoutId: Int
         get() = R.layout.fragment_poi_detail
+
+    override fun onViewInitialized(binding: FragmentPoiDetailBinding) {
+        super.onViewInitialized(binding)
+    }
 }
