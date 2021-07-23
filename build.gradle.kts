@@ -24,6 +24,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        mavenCentral()
 //        maven {
 //            setUrl("https://dl.bintray.com/arrow-kt/arrow-kt/")
 //        }

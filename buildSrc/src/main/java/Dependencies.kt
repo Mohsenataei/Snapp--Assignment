@@ -25,6 +25,7 @@ object Dependencies {
         const val navigationComponent = "2.3.0"
         const val fragment = "1.2.5"
         const val mapBox = "9.6.2"
+        const val mapBoxAnnotation = "0.9.0"
         const val mapBoxCore = "9.6.2"
     }
 
@@ -100,6 +101,7 @@ object Dependencies {
         const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
         const val glideCompiler = "com.github.bumptech.glide:compiler:${Versions.glide}"
         const val mapBox = "com.mapbox.mapboxsdk:mapbox-android-sdk:${Versions.mapBox}"
+        const val mapBoxAnnotation = "com.mapbox.mapboxsdk:mapbox-android-plugin-annotation-v9:${Versions.mapBoxAnnotation}"
     }
     object TestLibs {
         const val junit = "junit:junit:${Versions.junit}"

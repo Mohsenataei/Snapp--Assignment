@@ -1,11 +1,9 @@
 package io.github.maa96.data.source.remote
 
 import com.google.gson.Gson
-import com.google.gson.JsonParseException
-import io.github.maa96.data.model.crypto.PointOfInterest
+import io.github.maa96.data.model.poi.PointOfInterestDto
 import io.github.maa96.data.source.local.file.BaseFileProvider
-import io.github.maa96.data.source.remote.dtos.ResponseWrapper
-import io.github.maa96.data.util.fromJson
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Stub implementation of [DataSource].
@@ -17,7 +15,11 @@ class StubDataSource(
     private val fileProvider: BaseFileProvider
 ) : DataSource {
 
-    override suspend fun getAllPOIs(): ResponseWrapper<List<PointOfInterest>> {
+    override suspend fun getAllPOIs(): List<PointOfInterestDto> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getFlowOfPOIs(): Flow<List<PointOfInterestDto>> {
         TODO("Not yet implemented")
     }
 //    (
