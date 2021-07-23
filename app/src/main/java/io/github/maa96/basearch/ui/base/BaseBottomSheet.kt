@@ -6,16 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import dagger.android.support.DaggerDialogFragment
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
-import io.github.maa96.basearch.ui.base.ViewModelScope.FRAGMENT
-import io.github.maa96.basearch.ui.base.ViewModelScope.ACTIVITY
 
-
-abstract class BaseFragment<V : BaseViewModel, B : ViewDataBinding> : DaggerFragment(),
+abstract class BaseBottomSheet<V : BaseViewModel, B : ViewDataBinding> :
+    BottomSheetDialogFragment(),
     BaseView<V, B> {
 
     private var _binding: B? = null
@@ -37,8 +35,11 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewDataBinding> : DaggerFrag
     inline fun <reified T : BaseViewModel> getLazyViewModel(scope: ViewModelScope): Lazy<T> =
         lazy {
             when (scope) {
-                ACTIVITY -> ViewModelProvider(requireActivity(), viewModelFactory)[T::class.java]
-                FRAGMENT -> ViewModelProvider(this, viewModelFactory)[T::class.java]
+                ViewModelScope.ACTIVITY -> ViewModelProvider(
+                    requireActivity(),
+                    viewModelFactory
+                )[T::class.java]
+                ViewModelScope.FRAGMENT -> ViewModelProvider(this, viewModelFactory)[T::class.java]
             }
         }
 
@@ -60,10 +61,13 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewDataBinding> : DaggerFrag
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // observe viewModel uiActions in order to pass parent activity as argument of uiAction
+//        viewModel.activityAction.observe(viewLifecycleOwner {
+//            it.invoke(requireActivity())
+//        })
 
-
-        viewModel.activityAction.observe(viewLifecycleOwner, Observer { it?.invoke(requireActivity()) })
-        viewModel.fragmentAction.observe(viewLifecycleOwner, Observer { it?.invoke(this) })
+//        viewModel.fragmentAction.observe(viewLifecycleOwner) {
+//            it?.invoke(this)
+//        }
         onViewInitialized(binding)
     }
 
@@ -72,4 +76,6 @@ abstract class BaseFragment<V : BaseViewModel, B : ViewDataBinding> : DaggerFrag
         _binding?.unbind()
         _binding = null
     }
+
 }
+

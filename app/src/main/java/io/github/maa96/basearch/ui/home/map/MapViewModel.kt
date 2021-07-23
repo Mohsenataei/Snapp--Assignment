@@ -34,39 +34,12 @@ class MapViewModel @Inject constructor(
     private var marker: MarkerView? = null
 
 
-
     init {
         getAllPOIs()
     }
 
     fun initMap(mapView: MapView?) {
-        mapView?.getMapAsync { mapboxMap ->
-            mapboxMap.setStyle(Style.MAPBOX_STREETS) { style ->
-                // Map is set up and the style has loaded. Now you can add data or make other map adjustments
-                symbolManager = SymbolManager(mapView, mapboxMap, style)
-                markerViewManager = MarkerViewManager(mapView, mapboxMap)
 
-
-                symbolManager.addClickListener(this)
-                symbolManager.addLongClickListener(this)
-                // Set non-data-driven properties.
-                symbolManager.iconAllowOverlap = true
-                symbolManager.iconIgnorePlacement = true
-
-                // Create a symbol at the specified location.
-
-                // create nearby symbols
-
-                // create nearby symbols
-                val nearbyOptions = SymbolOptions()
-                    .withLatLng(LatLng(6.626384, 0.367099))
-                    .withIconImage("fire-station-15")
-                    .withIconColor(ColorUtils.colorToRgbaString(Color.BLUE))
-                    .withIconSize(2f)
-                    .withSymbolSortKey(5.0f)
-                symbolManager.create(nearbyOptions)
-            }
-        }
     }
 
 //    private fun createCustomMarker() {
@@ -103,7 +76,7 @@ class MapViewModel @Inject constructor(
 
     fun getAllPOIs() {
         poiRepository.getPointOfInterests().asLiveData().also {
-            Log.d(TAG, "getAllPOIs: $it")
+            Log.d(TAG, "getAllPOIs: ${it.value}")
         }
 //        viewModelScope.launch {
 //            poiRepository.getLatestUpdates().fold(

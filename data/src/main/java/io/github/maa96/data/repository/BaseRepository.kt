@@ -55,7 +55,7 @@ abstract class BaseRepository(private val errorMapper: ErrorMapper) {
         emitAll(flow)
 
         // This is functional implementation of above piece of code but todo remember to test it
-        /*shouldFetch(data).takeIf { it }?.apply {
+        shouldFetch(data).takeIf { it }?.apply {
             emit(Resource.Loading(data))
             try {
                 saveFetchedResult(fetch())
@@ -66,7 +66,7 @@ abstract class BaseRepository(private val errorMapper: ErrorMapper) {
         } ?: let {
             query().map { Resource.Success(it) }
         }
-        emitAll(flow)*/
+        emitAll(flow)
     }
 
 }

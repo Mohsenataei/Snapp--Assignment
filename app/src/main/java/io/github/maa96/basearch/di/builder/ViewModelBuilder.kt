@@ -24,6 +24,6 @@ import io.github.maa96.basearch.ui.home.HomeViewModelBuilder
 abstract class ViewModelBuilder {
 
     @Binds
-    abstract fun bindViewModelFactory(archViewModelFactory: ArchitectureViewModelFactory): ViewModelProvider.Factory
+    abstract fun bindViewModelFactory(factory: ArchitectureViewModelFactory): ViewModelProvider.Factory
 
 }

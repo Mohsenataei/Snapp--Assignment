@@ -17,9 +17,4 @@ class ArchitectureApplication : DaggerApplication() {
         super.onCreate()
         Mapbox.getInstance(this, getString(R.string.mapbox_access_token))
     }
-    private fun initDebugModeValues() {
-        if (BuildConfig.DEBUG) {
-            Stetho.initializeWithDefaults(this)
-        }
-    }
 }

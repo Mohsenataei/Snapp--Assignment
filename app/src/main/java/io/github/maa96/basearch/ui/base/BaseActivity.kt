@@ -49,5 +49,4 @@ abstract class BaseActivity<V : BaseViewModel, B : ViewDataBinding> : DaggerAppC
         onViewInitialized(binding)
     }
 
-
 }
