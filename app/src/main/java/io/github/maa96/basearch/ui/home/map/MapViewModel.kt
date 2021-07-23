@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.FrameLayout
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.mapbox.mapboxsdk.geometry.LatLng
 import com.mapbox.mapboxsdk.maps.MapView
@@ -101,16 +102,19 @@ class MapViewModel @Inject constructor(
 //    }
 
     fun getAllPOIs() {
-        viewModelScope.launch {
-            poiRepository.getLatestUpdates().fold(
-                {
-                    Log.d(TAG, "getAllPOIs: $it")
-                },
-                {
-                    Log.d(TAG, "getAllPOIs: $it")
-                }
-            )
+        poiRepository.getPointOfInterests().asLiveData().also {
+            Log.d(TAG, "getAllPOIs: $it")
         }
+//        viewModelScope.launch {
+//            poiRepository.getLatestUpdates().fold(
+//                {
+//                    Log.d(TAG, "getAllPOIs: $it")
+//                },
+//                {
+//                    Log.d(TAG, "getAllPOIs: $it")
+//                }
+//            )
+//        }
     }
 
     override fun onAnnotationClick(t: Symbol?): Boolean {
