@@ -1,25 +1,12 @@
 package io.github.maa96.basearch.ui.home.map
-
-import android.animation.ValueAnimator
-import android.graphics.Color
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.animation.AccelerateDecelerateInterpolator
-import android.widget.FrameLayout
 import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
-import com.mapbox.mapboxsdk.geometry.LatLng
 import com.mapbox.mapboxsdk.maps.MapView
-import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.plugins.annotation.*
 import com.mapbox.mapboxsdk.plugins.markerview.MarkerView
 import com.mapbox.mapboxsdk.plugins.markerview.MarkerViewManager
-import com.mapbox.mapboxsdk.utils.ColorUtils
 import io.github.maa96.basearch.ui.base.BaseViewModel
 import io.github.maa96.data.repository.POIRepository
-import kotlinx.coroutines.launch
 import java.util.*
 import javax.inject.Inject
 
@@ -32,6 +19,8 @@ class MapViewModel @Inject constructor(
     private val random = Random()
     private var markerViewManager: MarkerViewManager? = null
     private var marker: MarkerView? = null
+
+    val allPois = poiRepository.getPointOfInterests().asLiveData()
 
 
     init {

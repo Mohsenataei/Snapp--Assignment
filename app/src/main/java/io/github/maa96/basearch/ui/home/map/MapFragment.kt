@@ -2,7 +2,7 @@ package io.github.maa96.basearch.ui.home.map
 
 
 import android.graphics.Color
-import com.mapbox.mapboxsdk.Mapbox
+import android.util.Log
 import com.mapbox.mapboxsdk.geometry.LatLng
 import com.mapbox.mapboxsdk.maps.MapView
 import com.mapbox.mapboxsdk.maps.Style
@@ -15,10 +15,10 @@ import com.mapbox.mapboxsdk.plugins.markerview.MarkerViewManager
 import com.mapbox.mapboxsdk.utils.ColorUtils
 import com.mohsen.architecture.R
 import com.mohsen.architecture.databinding.FragmentMapBinding
-import com.mohsen.architecture.databinding.PoiDetailBottomSheetBinding
 import io.github.maa96.basearch.ui.base.BaseFragment
 import io.github.maa96.basearch.ui.base.ViewModelScope
 import io.github.maa96.basearch.ui.home.map.bottomsheet.POIDetailBottomSheet
+import io.github.maa96.basearch.util.extension.observe
 import java.util.*
 
 class MapFragment : BaseFragment<MapViewModel, FragmentMapBinding>(), OnSymbolClickListener {
@@ -35,6 +35,9 @@ class MapFragment : BaseFragment<MapViewModel, FragmentMapBinding>(), OnSymbolCl
         super.onViewInitialized(binding)
         mapView = binding.mapView
         initMap(binding.mapView)
+        viewModel.allPois.observe(viewLifecycleOwner) {
+            Log.d(TAG, "onViewInitialized: ${it?.data} and ${it?.error}")
+        }
     }
 
     private fun initMap(bindingMapView: MapView) {
@@ -72,5 +75,9 @@ class MapFragment : BaseFragment<MapViewModel, FragmentMapBinding>(), OnSymbolCl
         val poiDetailBottomSheet = POIDetailBottomSheet()
         poiDetailBottomSheet.show(childFragmentManager, "")
         return true
+    }
+
+    companion object {
+        private const val TAG = "MapFragment"
     }
 }
