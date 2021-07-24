@@ -8,8 +8,10 @@ import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.mohsen.architecture.R
 import com.mohsen.architecture.databinding.PoiDetailBottomSheetBinding
+import io.github.maa96.data.model.poi.PointOfInterestDto
 
 class POIDetailBottomSheet(
+    private val poi: PointOfInterestDto
 ) : BottomSheetDialogFragment() {
     private lateinit var binding: PoiDetailBottomSheetBinding
 
@@ -25,6 +27,6 @@ class POIDetailBottomSheet(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        binding.poi = pointOfInterestDto
+        binding.poi = poi
     }
 }

@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.util.Log
 import android.widget.Toast
 import com.google.gson.Gson
+import com.google.gson.JsonElement
 import com.mapbox.mapboxsdk.geometry.LatLng
 import com.mapbox.mapboxsdk.maps.MapView
 import com.mapbox.mapboxsdk.maps.Style
@@ -21,6 +22,7 @@ import io.github.maa96.basearch.ui.base.BaseFragment
 import io.github.maa96.basearch.ui.base.ViewModelScope
 import io.github.maa96.basearch.ui.home.map.bottomsheet.POIDetailBottomSheet
 import io.github.maa96.basearch.util.extension.observe
+import io.github.maa96.basearch.util.extension.stringToInt
 import io.github.maa96.basearch.util.extension.withData
 import io.github.maa96.data.model.poi.PointOfInterestDto
 import io.github.maa96.data.util.Resource.*
@@ -33,7 +35,6 @@ class MapFragment : BaseFragment<MapViewModel, FragmentMapBinding>(), OnSymbolCl
         get() = R.layout.fragment_map
     private lateinit var mapView: MapView
     private lateinit var symbolManager: SymbolManager
-    private val random = Random()
     private var markerViewManager: MarkerViewManager? = null
     private var marker: MarkerView? = null
 
@@ -47,7 +48,9 @@ class MapFragment : BaseFragment<MapViewModel, FragmentMapBinding>(), OnSymbolCl
                     // do nothing, we do not need it yet
                 }
                 is Success -> {
+                    viewModel.setPoiMap(it.data)
                     addPointsToMap(it.data)
+                    Log.d(TAG, "onViewInitialized: ${it.data}")
                 }
 
                 is Error -> {
@@ -92,8 +95,17 @@ class MapFragment : BaseFragment<MapViewModel, FragmentMapBinding>(), OnSymbolCl
     }
 
     override fun onAnnotationClick(symbol: Symbol?): Boolean {
-        val poiDetailBottomSheet = POIDetailBottomSheet()
         Log.d(TAG, "onAnnotationClick: data is ${symbol?.data}")
+        val data = symbol?.data
+        val id = data?.stringToInt()
+        Log.d(
+            TAG, "onAnnotationClick: poi info is ${
+                viewModel.getPoiById(
+                    id
+                )
+            }"
+        )
+        val poiDetailBottomSheet = POIDetailBottomSheet(viewModel.getPoiById(id)!!)
         poiDetailBottomSheet.show(childFragmentManager, "")
         return true
     }

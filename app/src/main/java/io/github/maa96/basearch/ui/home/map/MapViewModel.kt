@@ -18,6 +18,18 @@ class MapViewModel @Inject constructor(
     val allPois: LiveData<Resource<List<PointOfInterestDto>>>
         get() = _allPois
 
+    lateinit var poiMap: Map<Int, PointOfInterestDto>
+
+    fun setPoiMap(pois: List<PointOfInterestDto>?) {
+        poiMap = pois?.map {
+            it.id to it
+        }?.toMap()!!
+    }
+
+    fun getPoiById(id: Int?): PointOfInterestDto? {
+        return poiMap[id]
+    }
+
 
     init {
         getAllPOIs()

@@ -41,8 +41,10 @@ abstract class BaseRepository(private val errorMapper: ErrorMapper) {
         crossinline shouldFetch: (ResultType) -> Boolean = { true }
     ) = flow {
         val data = query().first()
+
         val flow = if (shouldFetch(data)) {
             emit(Resource.Loading(data))
+
             try {
                 saveFetchedResult(fetch())
                 query().map { Resource.Success(it) }
@@ -50,20 +52,6 @@ abstract class BaseRepository(private val errorMapper: ErrorMapper) {
                 query().map { Resource.Error(it, throwable) }
             }
         } else {
-            query().map { Resource.Success(it) }
-        }
-        emitAll(flow)
-
-        // This is functional implementation of above piece of code but todo remember to test it
-        shouldFetch(data).takeIf { it }?.apply {
-            emit(Resource.Loading(data))
-            try {
-                saveFetchedResult(fetch())
-                query().map { Resource.Success(it) }
-            } catch (throwable: Throwable) {
-                query().map { Resource.Error(it, throwable) }
-            }
-        } ?: let {
             query().map { Resource.Success(it) }
         }
         emitAll(flow)
