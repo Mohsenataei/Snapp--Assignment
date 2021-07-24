@@ -3,6 +3,8 @@ package io.github.maa96.basearch.ui.home.map
 
 import android.graphics.Color
 import android.util.Log
+import android.widget.Toast
+import com.google.gson.Gson
 import com.mapbox.mapboxsdk.geometry.LatLng
 import com.mapbox.mapboxsdk.maps.MapView
 import com.mapbox.mapboxsdk.maps.Style
@@ -19,7 +21,11 @@ import io.github.maa96.basearch.ui.base.BaseFragment
 import io.github.maa96.basearch.ui.base.ViewModelScope
 import io.github.maa96.basearch.ui.home.map.bottomsheet.POIDetailBottomSheet
 import io.github.maa96.basearch.util.extension.observe
+import io.github.maa96.basearch.util.extension.withData
+import io.github.maa96.data.model.poi.PointOfInterestDto
+import io.github.maa96.data.util.Resource.*
 import java.util.*
+import kotlin.Error
 
 class MapFragment : BaseFragment<MapViewModel, FragmentMapBinding>(), OnSymbolClickListener {
     override val viewModel: MapViewModel by getLazyViewModel(ViewModelScope.FRAGMENT)
@@ -36,8 +42,35 @@ class MapFragment : BaseFragment<MapViewModel, FragmentMapBinding>(), OnSymbolCl
         mapView = binding.mapView
         initMap(binding.mapView)
         viewModel.allPois.observe(viewLifecycleOwner) {
-            Log.d(TAG, "onViewInitialized: ${it?.data} and ${it?.error}")
+            when (it) {
+                is Loading -> {
+                    // do nothing, we do not need it yet
+                }
+                is Success -> {
+                    addPointsToMap(it.data)
+                }
+
+                is Error -> {
+                    Toast.makeText(requireContext(), "${it.error?.cause}", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
         }
+    }
+
+    private fun addPointsToMap(data: List<PointOfInterestDto>?) {
+        // create nearby symbols
+        data?.forEach {
+            val nearbyOptions = SymbolOptions()
+                .withLatLng(LatLng(it.latitude.toDouble(), it.longitude.toDouble()))
+                .withIconImage("fire-station-15")
+                .withIconColor(ColorUtils.colorToRgbaString(Color.BLUE))
+                .withIconSize(2f)
+                .withSymbolSortKey(5.0f)
+                .withData(it.id.toString())
+            symbolManager.create(nearbyOptions)
+        }
+
     }
 
     private fun initMap(bindingMapView: MapView) {
@@ -54,25 +87,13 @@ class MapFragment : BaseFragment<MapViewModel, FragmentMapBinding>(), OnSymbolCl
                 // Set non-data-driven properties.
                 symbolManager.iconAllowOverlap = true
                 symbolManager.iconIgnorePlacement = true
-
-                // Create a symbol at the specified location.
-
-                // create nearby symbols
-
-                // create nearby symbols
-                val nearbyOptions = SymbolOptions()
-                    .withLatLng(LatLng(6.626384, 0.367099))
-                    .withIconImage("fire-station-15")
-                    .withIconColor(ColorUtils.colorToRgbaString(Color.BLUE))
-                    .withIconSize(2f)
-                    .withSymbolSortKey(5.0f)
-                symbolManager.create(nearbyOptions)
             }
         }
     }
 
-    override fun onAnnotationClick(t: Symbol?): Boolean {
+    override fun onAnnotationClick(symbol: Symbol?): Boolean {
         val poiDetailBottomSheet = POIDetailBottomSheet()
+        Log.d(TAG, "onAnnotationClick: data is ${symbol?.data}")
         poiDetailBottomSheet.show(childFragmentManager, "")
         return true
     }
