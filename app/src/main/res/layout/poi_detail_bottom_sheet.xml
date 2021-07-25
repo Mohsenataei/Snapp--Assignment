@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="poi"
+            name="item"
             type="io.github.maa96.data.model.poi.PointOfInterestDto" />
 
     </data>
@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="220dp"
             android:scaleType="centerCrop"
-            app:imageResource="@{poi.image}" />
+            app:imageResource="@{item.image}" />
 
         <TextView
             android:id="@+id/poi_name"
@@ -31,7 +31,7 @@
             android:layout_margin="8dp"
             android:padding="8dp"
             android:gravity="center"
-            android:text="@{poi.name}"
+            android:text="@{item.name}"
             tools:text="This is sample name for this point of interest " />
 
         <TextView
@@ -41,7 +41,7 @@
             android:layout_margin="16dp"
             android:padding="8dp"
             android:gravity="center"
-            android:text="@{poi.description}"
+            android:text="@{item.description}"
             tools:text="This is sample description for this point of interest" />
         <androidx.constraintlayout.widget.Group
             android:layout_width="wrap_content"

@@ -19,16 +19,11 @@ class StubDataSource(
         TODO("Not yet implemented")
     }
 
+    override suspend fun getPOIById(pId: Int): PointOfInterestDto {
+        TODO("Not yet implemented")
+    }
+
     override fun getFlowOfPOIs(): Flow<List<PointOfInterestDto>> {
         TODO("Not yet implemented")
     }
-//    (
-//        start: Int,
-//        limit: Int,
-//        convertTo: String
-//    ): ResponseWrapper<List<PointOfInterest>> {
-//        val inputStream = fileProvider.getAsset("latest_updates.json")
-//        val response = String(fileProvider.getByteArrayFromInputStream(inputStream))
-//        return gson.fromJson(response) ?: throw JsonParseException("provided json file is not ")
-//    }
 }

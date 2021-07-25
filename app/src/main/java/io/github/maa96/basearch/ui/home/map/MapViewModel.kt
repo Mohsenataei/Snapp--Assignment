@@ -1,5 +1,6 @@
 package io.github.maa96.basearch.ui.home.map
 
+import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
@@ -16,9 +17,7 @@ class MapViewModel @Inject constructor(
 ) : BaseViewModel() {
     private val TAG = "MapViewModel"
 
-    val _allPois = poiRepository.getPointOfInterests().asLiveData()
-    val allPois: LiveData<Resource<List<PointOfInterestDto>>>
-        get() = _allPois
+    val allPois = poiRepository.getPointOfInterests().asLiveData()
 
     lateinit var poiMap: Map<Int, PointOfInterestDto>
 
@@ -32,9 +31,11 @@ class MapViewModel @Inject constructor(
         return poiMap[id]
     }
 
-    fun navigateToPoiDetail() {
+    fun navigateToPoiDetail(pid: Int) {
+        val bundle = Bundle()
+        bundle.putInt("POI_ID", pid)
         fragmentAction {
-            homeNavigator.navigateToDetailFragment(it)
+            homeNavigator.navigateToDetailFragment(it, bundle)
         }
     }
 

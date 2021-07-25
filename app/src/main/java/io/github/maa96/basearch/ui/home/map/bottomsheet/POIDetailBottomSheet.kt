@@ -28,7 +28,7 @@ class POIDetailBottomSheet(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.poi = poi
+        binding.item = poi
         binding.poiContainer.setOnClickListener {
             onClick?.invoke()
         }
