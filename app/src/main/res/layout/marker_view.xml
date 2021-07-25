@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data/>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:background="@color/cardview_dark_background"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="5dp"
+        app:cardUseCompatPadding="true">
+
+        <ImageView
+            android:id="@+id/imageview"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_alignParentLeft="true"
+            android:padding="4dp"
+            app:srcCompat="@drawable/ic_maps" />
+
+        <FrameLayout
+            android:id="@+id/animation_layout"
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_toRightOf="@id/imageview" />
+
+    </androidx.cardview.widget.CardView>
+</layout>

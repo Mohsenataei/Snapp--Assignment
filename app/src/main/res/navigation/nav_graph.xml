@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/mapFragment">
+
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="io.github.maa96.basearch.ui.home.map.MapFragment"
+        android:label="mapFragment"
+        tools:layout="@layout/fragment_map">
+        <action
+            android:id="@+id/action_mapFragment_to_poiDetailFragment"
+            app:destination="@id/poiDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/poiDetailFragment"
+        android:name="io.github.maa96.basearch.ui.home.detail.POIDetailFragment"
+        android:label="poiDetailFragment"
+        tools:layout="@layout/fragment_poi_detail" />
+
+</navigation>
