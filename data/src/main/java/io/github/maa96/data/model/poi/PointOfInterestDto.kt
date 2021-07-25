@@ -11,8 +11,8 @@ data class PointOfInterestDto(
     val id: Int,
     @SerializedName("name") val name: String,
     @SerializedName("description") val description: String,
-    @SerializedName("latitude") val latitude: Long,
-    @SerializedName("longitude") val longitude: Long,
+    @SerializedName("latitude") val latitude: String,
+    @SerializedName("longitude") val longitude: String,
     @SerializedName("title") val title: String,
     @SerializedName("image") val image: String
 )

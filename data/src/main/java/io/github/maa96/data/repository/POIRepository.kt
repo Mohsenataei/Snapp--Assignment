@@ -28,13 +28,26 @@ class POIRepository @Inject constructor(
         fetch = {
             dataSource.getAllPOIs()
         },
-        saveFetchedResult = { pointOfInterests ->
+        saveFetchedResult = {
             db.withTransaction {
                 pointOfInterestDao.deleteAllPois()
-                pointOfInterestDao.insertPois(pointOfInterests)
+                pointOfInterestDao.insertPois(it)
             }
         }
     )
 
-
+    fun getPointOfInterestById(pId: Int) = networkBoundResource(
+        query = {
+            pointOfInterestDao.getPoiById(pId)
+        },
+        fetch = {
+            dataSource.getPOIById(pId)
+        },
+        saveFetchedResult = {
+            db.withTransaction {
+                pointOfInterestDao.deletePoiById(pId)
+                pointOfInterestDao.insertPoi(it)
+            }
+        }
+    )
 }

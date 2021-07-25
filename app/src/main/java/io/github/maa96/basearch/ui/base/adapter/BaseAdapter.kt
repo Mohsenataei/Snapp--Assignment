@@ -23,7 +23,7 @@ import com.mohsen.architecture.BR
  * TODO Do not forget to update this constructor with [BR] class
  * */
 abstract class BaseAdapter<T : Any, B : ViewDataBinding>(
-    private val itemBindingId: Int,
+    private val itemBindingId: Int = BR.item,
     items: List<T> = emptyList(),
     private val onItemClicked: ((T) -> Unit)? = null,
     private val onBind: B.(Int) -> Unit = {}

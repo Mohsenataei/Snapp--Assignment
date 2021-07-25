@@ -72,6 +72,8 @@ dependencies {
     implementation(Dependencies.CommonLibs.mapBox)
     implementation(Dependencies.CommonLibs.mapBoxAnnotation)
     implementation("com.mapbox.mapboxsdk:mapbox-android-plugin-markerview-v9:0.4.0")
+    implementation("androidx.viewpager2:viewpager2:1.0.0")
+    implementation("com.tbuonomo:dotsindicator:4.2")
 
     implementation(project(Dependencies.Modules.data))
 

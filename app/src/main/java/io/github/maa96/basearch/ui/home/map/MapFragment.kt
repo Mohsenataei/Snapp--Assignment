@@ -2,7 +2,10 @@ package io.github.maa96.basearch.ui.home.map
 
 
 import android.graphics.Color
-import com.mapbox.mapboxsdk.Mapbox
+import android.util.Log
+import android.widget.Toast
+import com.google.gson.Gson
+import com.google.gson.JsonElement
 import com.mapbox.mapboxsdk.geometry.LatLng
 import com.mapbox.mapboxsdk.maps.MapView
 import com.mapbox.mapboxsdk.maps.Style
@@ -15,11 +18,16 @@ import com.mapbox.mapboxsdk.plugins.markerview.MarkerViewManager
 import com.mapbox.mapboxsdk.utils.ColorUtils
 import com.mohsen.architecture.R
 import com.mohsen.architecture.databinding.FragmentMapBinding
-import com.mohsen.architecture.databinding.PoiDetailBottomSheetBinding
 import io.github.maa96.basearch.ui.base.BaseFragment
 import io.github.maa96.basearch.ui.base.ViewModelScope
 import io.github.maa96.basearch.ui.home.map.bottomsheet.POIDetailBottomSheet
+import io.github.maa96.basearch.util.extension.observe
+import io.github.maa96.basearch.util.extension.stringToInt
+import io.github.maa96.basearch.util.extension.withData
+import io.github.maa96.data.model.poi.PointOfInterestDto
+import io.github.maa96.data.util.Resource.*
 import java.util.*
+import kotlin.Error
 
 class MapFragment : BaseFragment<MapViewModel, FragmentMapBinding>(), OnSymbolClickListener {
     override val viewModel: MapViewModel by getLazyViewModel(ViewModelScope.FRAGMENT)
@@ -27,7 +35,6 @@ class MapFragment : BaseFragment<MapViewModel, FragmentMapBinding>(), OnSymbolCl
         get() = R.layout.fragment_map
     private lateinit var mapView: MapView
     private lateinit var symbolManager: SymbolManager
-    private val random = Random()
     private var markerViewManager: MarkerViewManager? = null
     private var marker: MarkerView? = null
 
@@ -35,6 +42,38 @@ class MapFragment : BaseFragment<MapViewModel, FragmentMapBinding>(), OnSymbolCl
         super.onViewInitialized(binding)
         mapView = binding.mapView
         initMap(binding.mapView)
+        viewModel.allPois.observe(viewLifecycleOwner) {
+            when (it) {
+                is Loading -> {
+                    // do nothing, we do not need it yet
+                }
+                is Success -> {
+                    viewModel.setPoiMap(it.data)
+                    addPointsToMap(it.data)
+                    Log.d(TAG, "onViewInitialized: ${it.data}")
+                }
+
+                is Error -> {
+                    Toast.makeText(requireContext(), "${it.error?.cause}", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+        }
+    }
+
+    private fun addPointsToMap(data: List<PointOfInterestDto>?) {
+        // create nearby symbols
+        data?.forEach {
+            val nearbyOptions = SymbolOptions()
+                .withLatLng(LatLng(it.latitude.toDouble(), it.longitude.toDouble()))
+                .withIconImage("fire-station-15")
+                .withIconColor(ColorUtils.colorToRgbaString(Color.BLUE))
+                .withIconSize(2f)
+                .withSymbolSortKey(5.0f)
+                .withData(it.id.toString())
+            symbolManager.create(nearbyOptions)
+        }
+
     }
 
     private fun initMap(bindingMapView: MapView) {
@@ -51,26 +90,29 @@ class MapFragment : BaseFragment<MapViewModel, FragmentMapBinding>(), OnSymbolCl
                 // Set non-data-driven properties.
                 symbolManager.iconAllowOverlap = true
                 symbolManager.iconIgnorePlacement = true
-
-                // Create a symbol at the specified location.
-
-                // create nearby symbols
-
-                // create nearby symbols
-                val nearbyOptions = SymbolOptions()
-                    .withLatLng(LatLng(6.626384, 0.367099))
-                    .withIconImage("fire-station-15")
-                    .withIconColor(ColorUtils.colorToRgbaString(Color.BLUE))
-                    .withIconSize(2f)
-                    .withSymbolSortKey(5.0f)
-                symbolManager.create(nearbyOptions)
             }
         }
     }
 
-    override fun onAnnotationClick(t: Symbol?): Boolean {
-        val poiDetailBottomSheet = POIDetailBottomSheet()
+    override fun onAnnotationClick(symbol: Symbol?): Boolean {
+        Log.d(TAG, "onAnnotationClick: data is ${symbol?.data}")
+        val data = symbol?.data
+        val id = data?.stringToInt()
+        Log.d(
+            TAG, "onAnnotationClick: poi info is ${
+                viewModel.getPoiById(
+                    id
+                )
+            }"
+        )
+        val poiDetailBottomSheet = POIDetailBottomSheet(viewModel.getPoiById(id)!!) {
+            viewModel.navigateToPoiDetail(id!!)
+        }
         poiDetailBottomSheet.show(childFragmentManager, "")
         return true
+    }
+
+    companion object {
+        private const val TAG = "MapFragment"
     }
 }
