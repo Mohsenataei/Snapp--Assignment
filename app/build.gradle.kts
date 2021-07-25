@@ -30,7 +30,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            buildConfigField("String", "MapboxAccessToken", Dependencies.Config.MapboxAccessToken)
+            isShrinkResources = true
         }
 
         getByName(Dependencies.BuildTypes.DEBUG) {
