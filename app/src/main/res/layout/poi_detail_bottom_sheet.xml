@@ -12,6 +12,7 @@
     </data>
 
     <LinearLayout
+        android:id="@+id/poi_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -21,7 +22,6 @@
             android:layout_width="match_parent"
             android:layout_height="220dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/hailee_steinfeld"
             app:imageResource="@{poi.image}" />
 
         <TextView
@@ -29,6 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            android:padding="8dp"
             android:gravity="center"
             android:text="@{poi.name}"
             tools:text="This is sample name for this point of interest " />
@@ -38,8 +39,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            android:padding="8dp"
             android:gravity="center"
             android:text="@{poi.description}"
             tools:text="This is sample description for this point of interest" />
+        <androidx.constraintlayout.widget.Group
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 </layout>

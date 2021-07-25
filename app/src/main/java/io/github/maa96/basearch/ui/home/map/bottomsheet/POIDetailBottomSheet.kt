@@ -11,7 +11,8 @@ import com.mohsen.architecture.databinding.PoiDetailBottomSheetBinding
 import io.github.maa96.data.model.poi.PointOfInterestDto
 
 class POIDetailBottomSheet(
-    private val poi: PointOfInterestDto
+    private val poi: PointOfInterestDto,
+    val onClick: (() -> Unit)? = null
 ) : BottomSheetDialogFragment() {
     private lateinit var binding: PoiDetailBottomSheetBinding
 
@@ -28,5 +29,8 @@ class POIDetailBottomSheet(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.poi = poi
+        binding.poiContainer.setOnClickListener {
+            onClick?.invoke()
+        }
     }
 }

@@ -2,8 +2,11 @@ package io.github.maa96.basearch.ui.base
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.annotation.IdRes
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-
+import androidx.navigation.ActivityNavigator
+import androidx.navigation.Navigation
 
 
 //TODO("Compare this class and its functionality with navigation architecture component")
@@ -13,20 +16,28 @@ import androidx.fragment.app.FragmentActivity
 interface BaseNavigator {
 
     /**
-     * Starts an Activity
+     * Start an Activity
      *
-     * @param activity requester activity
+     * @param activity requested activity
      * @param cls the Activity class to be opened.
      * @param bundle which provides from getCallingBundle()
      */
-    fun startActivity(activity: FragmentActivity, cls: Class<*>, bundle: Bundle ) {
-        activity.startActivity(Intent(activity,cls).apply { putExtras(bundle) })
+    fun startActivity(activity: FragmentActivity, cls: Class<*>, bundle: Bundle) {
+        val intent = Intent(activity, cls)
+        intent.putExtras(bundle)
+        val destination = ActivityNavigator(activity)
+            .createDestination()
+            .setIntent(intent)
+        ActivityNavigator(activity).navigate(destination, bundle, null, null)
     }
 
     /**
-     * Finishes an activity
-     * @param activity requester activity */
-    fun finishActivity(activity: FragmentActivity) = activity.finish()
+     * Finish an Activity
+     * @param activity requested activity
+     */
+    fun finishActivity(activity: FragmentActivity) {
+        activity.finish()
+    }
 
     /**
      * Finish an Activity with a result.
@@ -53,14 +64,19 @@ interface BaseNavigator {
         activity.startActivityForResult(intent, requestCode)
     }
 
+    fun navigateTo(fragment: Fragment, @IdRes destinationId: Int) {
+        Navigation.findNavController(fragment.requireView()).navigate(destinationId)
+    }
 
-    /**
-     * attempt to start login activity if  token expired
-     *
-     * @param activity requested activity
-     */
-    fun onTokenExpired(activity: FragmentActivity) {
-        // todo: open login activity
+    fun navigateBack(fragment: Fragment) {
+        Navigation.findNavController(fragment.requireView()).popBackStack().not()
+    }
+
+    fun navigateBackTo(fragment: Fragment, desinationId: Int) {
+        Navigation.findNavController(fragment.requireView()).popBackStack(
+            desinationId,
+            false
+        )
     }
 
 }

@@ -105,7 +105,9 @@ class MapFragment : BaseFragment<MapViewModel, FragmentMapBinding>(), OnSymbolCl
                 )
             }"
         )
-        val poiDetailBottomSheet = POIDetailBottomSheet(viewModel.getPoiById(id)!!)
+        val poiDetailBottomSheet = POIDetailBottomSheet(viewModel.getPoiById(id)!!) {
+            viewModel.navigateToPoiDetail()
+        }
         poiDetailBottomSheet.show(childFragmentManager, "")
         return true
     }
